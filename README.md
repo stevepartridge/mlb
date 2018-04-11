@@ -1,2 +1,2 @@
 # mlb
-Wrapper for MLB 'api'
+Wrapper for MLB statsapi.mlb.com
