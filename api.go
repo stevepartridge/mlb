@@ -1,61 +1,85 @@
 package mlb
 
 import (
-	"bytes"
 	"encoding/json"
 	"errors"
-	"github.com/stevepartridge/go/log"
+	"fmt"
 	"io/ioutil"
 	"net/http"
+	"net/url"
 	"strconv"
+	"time"
 )
 
 const (
-	BASE_MLB_API_URL = "http://gd2.mlb.com/components/game/mlb"
+	baseApiURL = "https://statsapi.mlb.com/api/v1"
 )
 
-type MlbApi struct{}
+// schedule?lang=en&sportId=1&season=2018&startDate=2018-08-01&endDate=2018-08-31&teamId=119&eventTypes=primary&scheduleTypes=games
 
-type MlbApiResponse struct {
-	Subject   string      `json:"subject"`
-	Copyright string      `json:"copyright"`
-	Data      interface{} `json:"data"`
+type Mlb struct {
+	Debug bool
 }
 
-func (a *MlbApi) call(endpoint string) (MlbApiResponse, error) {
-	client := &http.Client{}
+type Response struct {
+	Copyright            string `json:"copyright"`
+	TotalItems           int    `json:"totalItems"`
+	TotalEvents          int    `json:"totalEvents"`
+	TotalGames           int    `json:"totalGames"`
+	TotalGamesInProgress int    `json:"totalGamesInProgress"`
+	Dates                []Date `json:"dates,omitempty"`
+}
 
-	var body []byte
-	var err error
+func (m *Mlb) call(endpoint string, query map[string]string) (Response, error) {
 
-	log.Debug(BASE_MLB_API_URL)
-	log.Debug(endpoint)
-	req, _ := http.NewRequest("GET", BASE_MLB_API_URL+endpoint, bytes.NewReader(body))
+	result := Response{}
 
-	resp, err := client.Do(req)
+	timeout := time.Duration(10 * time.Second)
+	client := http.Client{
+		Timeout: timeout,
+	}
+
+	_url := fmt.Sprintf("%s/%s?sportId=1", baseApiURL, endpoint)
+
+	if query["lang"] == "" {
+		query["lang"] = "en"
+	}
+
+	for k, v := range query {
+		m.log(" - ", k, v)
+		_url = _url + "&" + k + "=" + url.QueryEscape(v)
+	}
+
+	m.log("calling:", _url)
+
+	resp, err := client.Get(_url)
+
 	if err != nil {
-		return MlbApiResponse{}, err
+		return result, err
 	}
 
 	defer resp.Body.Close()
 
-	result := MlbApiResponse{}
+	body, err := ioutil.ReadAll(resp.Body)
 
+	if err != nil {
+		ifError(err)
+		return result, err
+	}
+
+	m.log("status code:", resp.StatusCode)
 	if resp.StatusCode != 200 {
 		return result, errors.New("Invalid response code from MLB.com, StatusCode: " + strconv.Itoa(resp.StatusCode))
 	}
 
-	contents, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		log.IfError(err)
-	}
+	m.log(" - body: \n%s", string(body))
 
-	err = json.Unmarshal([]byte(contents), &result)
+	err = json.Unmarshal([]byte(body), &result)
 	if err != nil {
-		log.Error(err)
-		log.Debug(string(contents))
-		return MlbApiResponse{}, err
+		ifError(err)
+		return result, err
 	}
 
 	return result, nil
+
 }
