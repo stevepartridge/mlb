@@ -72,7 +72,7 @@ func (m *Mlb) call(endpoint string, query map[string]string) (Response, error) {
 		return result, errors.New("Invalid response code from MLB.com, StatusCode: " + strconv.Itoa(resp.StatusCode))
 	}
 
-	m.log(" - body: \n%s", string(body))
+	m.log(" - body: \n %s", string(body))
 
 	err = json.Unmarshal([]byte(body), &result)
 	if err != nil {

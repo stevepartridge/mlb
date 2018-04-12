@@ -5,18 +5,18 @@ import (
 )
 
 func (m *Mlb) GetGamesByDate(date time.Time) ([]Game, error) {
-	return GetGamesByDateRange(date, date)
+	return m.GetGamesByDateRange(date, date)
 }
 
 func (m *Mlb) GetGamesByDateRange(start, end time.Time) ([]Game, error) {
 
 	// &season=2018&startDate=2018-08-01&endDate=2018-08-31&teamId=119&eventTypes=primary&scheduleTypes=games
 	params := map[string]string{
-		"season":        date.Format("2006"),
+		"season":        start.Format("2006"),
 		"eventTypes":    "primary",
 		"scheduleTypes": "games",
-		"startDate":     start,
-		"endDate":       end,
+		"startDate":     start.Format("2006-01-02"),
+		"endDate":       end.Format("2006-01-02"),
 	}
 
 	resp, err := m.call("/schedule", params)
