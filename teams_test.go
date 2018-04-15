@@ -110,7 +110,7 @@ func Test_GetEachTeam_Success(t *testing.T) {
 		if teams[0].Name != team {
 			t.Errorf("Team found (%s) does not match expected team (%s)",
 				teams[0].Name,
-				teams,
+				team,
 			)
 		}
 	}
