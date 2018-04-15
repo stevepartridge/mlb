@@ -1,6 +1,8 @@
 package mlb
 
 import (
+	"errors"
+	"strconv"
 	"time"
 )
 
@@ -9,8 +11,29 @@ func (m *Mlb) GetGamesByDate(date time.Time) ([]Game, error) {
 }
 
 func (m *Mlb) GetGamesByDateRange(start, end time.Time) ([]Game, error) {
+	return m.GetGames(start, end, 0)
+}
+
+func (m *Mlb) GetGamesByDateForTeam(date time.Time, teamId int) ([]Game, error) {
+	return m.GetGames(date, date, teamId)
+}
+
+func (m *Mlb) GetGamesByDateRangeForTeam(start, end time.Time, teamId int) ([]Game, error) {
+	return m.GetGames(start, end, teamId)
+}
+
+func (m *Mlb) GetGames(start, end time.Time, teamId int) ([]Game, error) {
 
 	// &season=2018&startDate=2018-08-01&endDate=2018-08-31&teamId=119&eventTypes=primary&scheduleTypes=games
+
+	if start.IsZero() {
+		return nil, errors.New("Invalid start date")
+	}
+
+	if end.IsZero() {
+		return nil, errors.New("Invalid end date")
+	}
+
 	params := map[string]string{
 		"season":        start.Format("2006"),
 		"eventTypes":    "primary",
@@ -19,7 +42,11 @@ func (m *Mlb) GetGamesByDateRange(start, end time.Time) ([]Game, error) {
 		"endDate":       end.Format("2006-01-02"),
 	}
 
-	resp, err := m.call("/schedule", params)
+	if teamId > 0 {
+		params["teamId"] = strconv.Itoa(teamId)
+	}
+
+	resp, err := m.Call("/schedule", params)
 	if err != nil {
 		ifError(err)
 		return []Game{}, err
