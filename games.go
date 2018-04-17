@@ -6,18 +6,22 @@ import (
 	"time"
 )
 
+// Get games by specific date.  Date is assumed to be relevant local to game timezone.
 func (m *Mlb) GetGamesByDate(date time.Time) ([]Game, error) {
 	return m.GetGamesByDateRange(date, date)
 }
 
+// Get games by specific date range.  Date is assumed to be relevant local to game timezone.
 func (m *Mlb) GetGamesByDateRange(start, end time.Time) ([]Game, error) {
 	return m.GetGames(start, end, 0)
 }
 
+// Get games by date for a specific team.  Date is assumed to be relevant local to game timezone.
 func (m *Mlb) GetGamesByDateForTeam(date time.Time, teamId int) ([]Game, error) {
 	return m.GetGames(date, date, teamId)
 }
 
+// Get games in date range for specific team.  Date is assumed to be relevant local to game timezone.
 func (m *Mlb) GetGamesByDateRangeForTeam(start, end time.Time, teamId int) ([]Game, error) {
 	return m.GetGames(start, end, teamId)
 }

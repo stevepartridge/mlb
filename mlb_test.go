@@ -22,7 +22,7 @@ func TestMain(m *testing.M) {
 		return
 	}
 
-	flag.BoolVar(&mlbApi.Debug, "debug", false, "-debug")
+	flag.BoolVar(&mlbApi.Debug, "debug", false, "go test -v -debug [-cover ...]")
 
 	flag.Parse()
 
