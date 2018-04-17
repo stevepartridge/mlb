@@ -5,36 +5,96 @@ import (
 )
 
 const (
-	Angels       = 108 // Los Angeles Angels
-	Diamondbacks = 109 // Arizona Diamondbacks
-	Orioles      = 110 // Baltimore Orioles
-	RedSox       = 111 // Boston Red Sox
-	Cubs         = 112 // Chicago Cubs
-	Reds         = 113 // Cincinnati Reds
-	Indians      = 114 // Cleveland Indians
-	Rockies      = 115 // Colorado Rockies
-	Tigers       = 116 // Detroit Tigers
-	Astros       = 117 // Houston Astros
-	Royals       = 118 // Kansas City Royals
-	Dodgers      = 119 // Los Angeles Dodgers
-	Nationals    = 120 // Washington Nationals
-	Mets         = 121 // New York Mets
-	Athletics    = 133 // Oakland Athletics
-	Pirates      = 134 // Pittsburgh Pirates
-	Padres       = 135 // San Diego Padres
-	Mariners     = 136 // Seattle Mariners
-	Giants       = 137 // San Francisco Giants
-	Cardinals    = 138 // St. Louis Cardinals
-	Rays         = 139 // Tampa Bay Rays
-	Rangers      = 140 // Texas Rangers
-	BlueJays     = 141 // Toronto Blue Jays
-	Twins        = 142 // Minnesota Twins
-	Phillies     = 143 // Philadelphia Phillies
-	Braves       = 144 // Atlanta Braves
-	WhiteSox     = 145 // Chicago White Sox
-	Marlins      = 146 // Miami Marlins
-	Yankees      = 147 // New York Yankees
-	Brewers      = 158 // Milwaukee Brewers
+
+	// Los Angeles Angels
+	Angels = 108
+
+	// Arizona Diamondbacks
+	Diamondbacks = 109
+
+	// Baltimore Orioles
+	Orioles = 110
+
+	// Boston Red Sox
+	RedSox = 111
+
+	// Chicago Cubs
+	Cubs = 112
+
+	// Cincinnati Reds
+	Reds = 113
+
+	// Cleveland Indians
+	Indians = 114
+
+	// Colorado Rockies
+	Rockies = 115
+
+	// Detroit Tigers
+	Tigers = 116
+
+	// Houston Astros
+	Astros = 117
+
+	// Kansas City Royals
+	Royals = 118
+
+	// Los Angeles Dodgers
+	Dodgers = 119
+
+	// Washington Nationals
+	Nationals = 120
+
+	// New York Mets
+	Mets = 121
+
+	// Oakland Athletics
+	Athletics = 133
+
+	// Pittsburgh Pirates
+	Pirates = 134
+
+	// San Diego Padres
+	Padres = 135
+
+	// Seattle Mariners
+	Mariners = 136
+
+	// San Francisco Giants
+	Giants = 137
+
+	// St. Louis Cardinals
+	Cardinals = 138
+
+	// Tampa Bay Rays
+	Rays = 139
+
+	// Texas Rangers
+	Rangers = 140
+
+	// Toronto Blue Jays
+	BlueJays = 141
+
+	// Minnesota Twins
+	Twins = 142
+
+	// Philadelphia Phillies
+	Phillies = 143
+
+	// Atlanta Braves
+	Braves = 144
+
+	// Chicago White Sox
+	WhiteSox = 145
+
+	// Miami Marlins
+	Marlins = 146
+
+	// New York Yankees
+	Yankees = 147
+
+	// Milwaukee Brewers
+	Brewers = 158
 )
 
 func (m *Mlb) GetTeams(teamIds ...int) ([]Team, error) {
