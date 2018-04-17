@@ -86,6 +86,8 @@ func (m *Mlb) Call(endpoint string, query map[string]string) (Response, error) {
 
 	}
 
+	// m.log(" - body: \n %s", string(body))
+
 	m.log("status code:", resp.StatusCode)
 	switch resp.StatusCode {
 	case 200:
@@ -95,9 +97,5 @@ func (m *Mlb) Call(endpoint string, query map[string]string) (Response, error) {
 	default:
 		return result, errors.New("Invalid response code from MLB.com, StatusCode: " + strconv.Itoa(resp.StatusCode))
 	}
-
-	// m.log(" - body: \n %s", string(body))
-
-	return result, nil
 
 }
