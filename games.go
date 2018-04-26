@@ -46,6 +46,10 @@ func (m *Mlb) GetGames(start, end time.Time, teamId int) ([]Game, error) {
 		"endDate":       end.Format("2006-01-02"),
 	}
 
+	if params["sportId"] == "" {
+		params["sportId"] = "1"
+	}
+
 	if teamId > 0 {
 		params["teamId"] = strconv.Itoa(teamId)
 	}

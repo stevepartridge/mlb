@@ -41,6 +41,10 @@ func (m *Mlb) GetTeams(teamIds ...int) ([]Team, error) {
 
 	params := map[string]string{}
 
+	if params["sportId"] == "" {
+		params["sportId"] = "1"
+	}
+
 	if len(teamIds) > 0 {
 		for i := range teamIds {
 
