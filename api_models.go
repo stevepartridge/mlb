@@ -5,12 +5,13 @@ type Response struct {
 	Message       string `json:"message,omitempty"`
 	MessageNumber int    `json:"messageNumber,omitempty"`
 
-	TotalItems           int    `json:"totalItems,omitempty"`
-	TotalEvents          int    `json:"totalEvents,omitempty"`
-	TotalGames           int    `json:"totalGames,omitempty"`
-	TotalGamesInProgress int    `json:"totalGamesInProgress,omitempty"`
-	Dates                []Date `json:"dates,omitempty"`
-	Teams                []Team `json:"teams,omitempty"`
+	TotalItems           int        `json:"totalItems,omitempty"`
+	TotalEvents          int        `json:"totalEvents,omitempty"`
+	TotalGames           int        `json:"totalGames,omitempty"`
+	TotalGamesInProgress int        `json:"totalGamesInProgress,omitempty"`
+	Dates                []Date     `json:"dates,omitempty"`
+	Teams                []Team     `json:"teams,omitempty"`
+	Divisions            []Division `json:"divisions,omitempty"`
 }
 
 type Date struct {
@@ -114,7 +115,12 @@ type League struct {
 }
 
 type Division struct {
-	Id   int    `json:"id"`
-	Name string `json:"name"`
-	Link string `json:"link"`
+	Id           int    `json:"id"`
+	Name         string `json:"name"`
+	NameShort    string `json:"nameShort,omitempty"`
+	Link         string `json:"link"`
+	Abbreviation string `json:"abbreviation,omitempty"`
+	League       League `json:"league,omitempty"`
+	Sport        Sport  `json:"sport,omitempty"`
+	HasWildcard  bool   `json:"hasWildcard,omitempty"`
 }
