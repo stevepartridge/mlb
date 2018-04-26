@@ -40,10 +40,6 @@ func (m *Mlb) Call(endpoint string, query map[string]string) (Response, error) {
 		query["lang"] = "en"
 	}
 
-	if query["sportId"] == "" {
-		query["sportId"] = "1"
-	}
-
 	for k, v := range query {
 		m.log(" - ", k, v)
 		if !strings.Contains(u, "?") {
