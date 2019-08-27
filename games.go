@@ -64,5 +64,13 @@ func (m *Mlb) GetGames(start, end time.Time, teamId int) ([]Game, error) {
 		return []Game{}, err
 	}
 
-	return resp.Dates[0].Games, nil
+	games := make([]Game, len(resp.Dates))
+
+	for _, date := range resp.Dates {
+		for _, game := range date.Games {
+			games = append(games, game)
+		}
+	}
+
+	return games, err
 }
