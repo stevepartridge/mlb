@@ -72,6 +72,7 @@ type GameTeam struct {
 	LeagueRecord LeagueRecord `json:"leagueRecord"`
 	Team         Team         `json:"team"`
 	IsWinner     bool         `json:"isWinner"`
+	Score        int          `json:"score"`
 	SplitSquad   bool         `json:"splitSquad"`
 	SeriesNumber int          `json:"seriesNumber"`
 }
