@@ -64,52 +64,35 @@ func Test_GetSpecificDivisions_Success(t *testing.T) {
 
 func Test_GetEachDivision_Success(t *testing.T) {
 	testDivisions := map[int]string{
-		mlb.AmericanLeagueEast:                 "American League East",
-		mlb.AmericanLeagueCentral:              "American League Central",
-		mlb.AmericanLeagueWest:                 "American League West",
-		mlb.NationalLeagueEast:                 "National League East",
-		mlb.NationalLeagueCentral:              "National League Central",
-		mlb.NationalLeagueWest:                 "National League West",
-		mlb.InternationalLeagueNorth:           "International League North",
-		mlb.InternationalLeagueSouth:           "International League South",
-		mlb.InternationalLeagueWest:            "International League West",
-		mlb.PacificCoastLeagueAmericanNorthern: "Pacific Coast League American Northern",
-		mlb.PacificCoastLeagueAmericanSouthern: "Pacific Coast League American Southern",
-		mlb.PacificCoastLeaguePacificNorthern:  "Pacific Coast League Pacific Northern",
-		mlb.PacificCoastLeaguePacificSouthern:  "Pacific Coast League Pacific Southern",
-		mlb.MexicanLeagueNorte:                 "Mexican League Norte",
-		mlb.EasternLeagueWestern:               "Eastern League Western",
-		mlb.SouthernLeagueNorth:                "Southern League North",
-		mlb.SouthernLeagueSouth:                "Southern League South",
-		mlb.TexasLeagueNorth:                   "Texas League North",
-		mlb.TexasLeagueSouth:                   "Texas League South",
-		mlb.CaliforniaLeagueNorth:              "California League North",
-		mlb.CaliforniaLeagueSouth:              "California League South",
-		mlb.CarolinaLeagueNorthern:             "Carolina League Northern",
-		mlb.CarolinaLeagueSouthern:             "Carolina League Southern",
-		mlb.FloridaStateLeagueNorth:            "Florida State League North",
-		mlb.FloridaStateLeagueSouth:            "Florida State League South",
-		mlb.MidwestLeagueEastern:               "Midwest League Eastern",
-		mlb.MidwestLeagueWestern:               "Midwest League Western",
-		mlb.SouthAtlanticLeagueNorthern:        "South Atlantic League Northern",
-		mlb.SouthAtlanticLeagueSouthern:        "South Atlantic League Southern",
-		mlb.NewYorkPennLeagueMcNamara:          "New York-Penn League McNamara",
-		mlb.NewYorkPennLeaguePinckney:          "New York-Penn League Pinckney",
-		mlb.NewYorkPennLeagueStedler:           "New York-Penn League Stedler",
-		mlb.NorthwestLeagueNorth:               "Northwest League North",
-		mlb.NorthwestLeagueSouth:               "Northwest League South",
-		mlb.PioneerLeagueNorth:                 "Pioneer League North",
-		mlb.PioneerLeagueSouth:                 "Pioneer League South",
-		mlb.AppalachianLeagueEast:              "Appalachian League East",
-		mlb.AppalachianLeagueWest:              "Appalachian League West",
-		mlb.ArizonaLeagueEast:                  "Arizona League East",
-		mlb.ArizonaLeagueCentral:               "Arizona League Central",
-		mlb.ArizonaLeagueWest:                  "Arizona League West",
-		// mlb.GulfCoastLeagueEast:                "Gulf Coast League East",
-		// mlb.GulfCoastLeagueNorth: "Gulf Coast League North",
-		// mlb.GulfCoastLeagueNortheast:          "Gulf Coast League Northeast",
-		// mlb.GulfCoastLeagueNorthwest:          "Gulf Coast League Northwest",
-		// mlb.GulfCoastLeagueSouth:              "Gulf Coast League South",
+		mlb.AmericanLeagueEast:                "American League East",
+		mlb.AmericanLeagueCentral:             "American League Central",
+		mlb.AmericanLeagueWest:                "American League West",
+		mlb.NationalLeagueEast:                "National League East",
+		mlb.NationalLeagueCentral:             "National League Central",
+		mlb.NationalLeagueWest:                "National League West",
+		mlb.InternationalLeagueEast:           "International League East",
+		mlb.InternationalLeagueWest:           "International League West",
+		mlb.PacificCoastLeagueWest:            "Pacific Coast League West",
+		mlb.PacificCoastLeagueEast:            "Pacific Coast League East",
+		mlb.MexicanLeagueNorte:                "Mexican League Norte",
+		mlb.EasternLeagueSouthwest:            "Eastern League Southwest",
+		mlb.SouthernLeagueNorth:               "Southern League North",
+		mlb.SouthernLeagueSouth:               "Southern League South",
+		mlb.TexasLeagueNorth:                  "Texas League North",
+		mlb.TexasLeagueSouth:                  "Texas League South",
+		mlb.CaliforniaLeagueNorth:             "California League North",
+		mlb.CaliforniaLeagueSouth:             "California League South",
+		mlb.CarolinaLeagueNorth:               "Carolina League North",
+		mlb.CarolinaLeagueSouth:               "Carolina League South",
+		mlb.FloridaStateLeagueEast:            "Florida State League East",
+		mlb.FloridaStateLeagueWest:            "Florida State League West",
+		mlb.MidwestLeagueEastern:              "Midwest League East",
+		mlb.MidwestLeagueWestern:              "Midwest League West",
+		mlb.SouthAtlanticLeagueNorth:          "South Atlantic League North",
+		mlb.SouthAtlanticLeagueSouth:          "South Atlantic League South",
+		mlb.ArizonaLeagueEast:                 "Arizona Complex League East",
+		mlb.ArizonaLeagueCentral:              "Arizona Complex League Central",
+		mlb.ArizonaLeagueWest:                 "Arizona Complex League West",
 		mlb.DominicanSummerLeagueNorth:        "Dominican Summer League North",
 		mlb.DominicanSummerLeagueSouth:        "Dominican Summer League South",
 		mlb.DominicanSummerLeagueNorthwest:    "Dominican Summer League Northwest",
@@ -119,22 +102,22 @@ func Test_GetEachDivision_Success(t *testing.T) {
 	}
 
 	for id, division := range testDivisions {
+		t.Run(division, func(t *testing.T) {
+			divisions, err := mlbApi.GetDivisions(id)
+			if err != nil {
+				t.Fatal("Should not error when retrieving divisions")
+			}
 
-		divisions, err := mlbApi.GetDivisions(id)
-		if err != nil {
-			t.Error("Should not error when retrieving divisions")
-		}
+			if len(divisions) != 1 {
+				t.Fatal("Should be exactly 1 division found.")
+			}
 
-		if len(divisions) != 1 {
-			t.Error("Should be exactly 1 division found.")
-		}
-
-		if divisions[0].Name != division {
-			t.Errorf("Division found (%s) does not match expected division (%s)",
-				divisions[0].Name,
-				division,
-			)
-		}
+			if divisions[0].Name != division {
+				t.Errorf("Division found (%s) does not match expected division (%s)",
+					divisions[0].Name,
+					division,
+				)
+			}
+		})
 	}
-
 }

@@ -11,7 +11,8 @@ const (
 	RedSox       = 111 // Boston Red Sox
 	Cubs         = 112 // Chicago Cubs
 	Reds         = 113 // Cincinnati Reds
-	Indians      = 114 // Cleveland Indians
+	Indians      = 114 // Cleveland Indians - renamed to Guardians
+	Guardians    = 114 // Cleveland Guardians - formerly the Indians
 	Rockies      = 115 // Colorado Rockies
 	Tigers       = 116 // Detroit Tigers
 	Astros       = 117 // Houston Astros
