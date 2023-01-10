@@ -15,6 +15,9 @@ import (
 // schedule?lang=en&sportId=1&season=2018&startDate=2018-08-01&endDate=2018-08-31&teamId=119&eventTypes=primary&scheduleTypes=games
 
 func (m *Mlb) Call(endpoint string, query map[string]string) (Response, error) {
+	if query == nil {
+		query = make(map[string]string)
+	}
 
 	result := Response{}
 

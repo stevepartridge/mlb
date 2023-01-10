@@ -70,7 +70,7 @@ func Test_GetEachTeam_Success(t *testing.T) {
 		mlb.RedSox:       "Boston Red Sox",
 		mlb.Cubs:         "Chicago Cubs",
 		mlb.Reds:         "Cincinnati Reds",
-		mlb.Indians:      "Cleveland Indians",
+		mlb.Indians:      "Cleveland Guardians",
 		mlb.Rockies:      "Colorado Rockies",
 		mlb.Tigers:       "Detroit Tigers",
 		mlb.Astros:       "Houston Astros",

@@ -11,6 +11,7 @@ type Response struct {
 	TotalGamesInProgress int        `json:"totalGamesInProgress,omitempty"`
 	Dates                []Date     `json:"dates,omitempty"`
 	Teams                []Team     `json:"teams,omitempty"`
+	Venues               []Venue    `json:"venues,omitempty"`
 	Divisions            []Division `json:"divisions,omitempty"`
 }
 

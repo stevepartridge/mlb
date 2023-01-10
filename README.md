@@ -35,7 +35,7 @@ for i := range teams {
 start, _ := time.Parse("2006/01/02", "2017/05/17")
 end := start.AddDate(0, 1, 0) // one month
 
-games, err := mlbApi.GetGamesForRange(start, end)
+games, err := mlbApi.GetGamesByDateRange(start, end)
 if err != nil {
   fmt.Println("well, dang", err.Error())
 }
